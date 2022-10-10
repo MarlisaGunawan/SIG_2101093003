@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Latihan 4 Membuat Line</title>
+    <link rel="stylesheet" type="text/css" href="leaflet.css"/>
+    <script type="text/javascript" src="leaflet.js"></script>
+</head>
+<body>
+    <div id="mapku" style="width: 100%; height: 600px"></div>
+</body>
+<script type="text/javascript">
+
+var mymap = L.map('mapku').setView([-0.9137822,100.4640162],17);
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+   maxZoom:18,
+   id:'mapbox/streets-v11',
+   tileSize: 512,
+   zoomOffset: -1,
+   accessToken: 'your.mapbox.access.token'
+}).addTo(mymap);
+
+var JalanKeBarak =[
+    [-0.914727,100.468787],
+    [-0.914466,100.469036],
+    [-0.913931,100.469146],
+    [-0.913040,100.469175],
+    [-0.912933,100.468122],
+    [-0.912590,100.467013],
+];
+
+L.polyline(JalanKeBarak).addTo(mymap);
+
+var DuaJalanKePoli = [
+    //array kordinate jalan pertama
+    [
+        [-0.923044,100.448551],
+        [-0.921064,100.451353],
+        [-0.917667,100.455348],
+        [-0.907876,100.461421],
+        [-0.906810,100.463411],
+        [-0.912420,100.468700],
+    ],
+
+    //array kordinate jalan kedua
+    [
+        [-0.922995,100.448572],
+        [-0.919171,100.453870],
+        [-0.919893,100.454592],
+        [-0.918466,100.457799],
+        [-0.917946,100.461660],
+        [-0.914660,100.462959],
+        [-0.914952,100.467663],
+        [-0.914062,100.467728],
+    ]
+];
+
+L.polyline(DuaJalanKePoli).addTo(mymap);
+
+L.marker([-0.907876, 100.461421])
+    .bindTooltip("<b>Jalan Terjauh</b> <br> Jarak 7 KM")
+    .addTo(mymap);
+
+L.marker([-0.914660, 100.462959])
+    .bindTooltip("<b>Jalan Tercepat</b> <br> Jarak 4 KM")
+    .addTo(mymap);
+</script>
+</html>

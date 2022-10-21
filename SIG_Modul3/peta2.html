@@ -47,5 +47,13 @@
     }
 
     myMap.on('click', onMapClick);
+
+    for (var i = 0; i<myLocation.length; i++){
+        markerMaps = new L.marker([myLocation[i][0], myLocation[i][1]]).addTo(myMap).bindTooltip(myLocation[i][2]).bindPopup(myLocation[i][3]);
+        }
+    
+        var info_masjid_raya = '<p style="text-align: center;"><iframe width="100%" height="200px"src="https://www.youtube.com/embed/aqW5KASLztQ" frameborder="0"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;picture-in-picture" allowfullscreen></iframe> </p> <p>Masjid Raya Sumatera Barat adalah masjid tanpa kubah. Atap masjid berupa khas rumah adat Minang serta terdapat ukiran-ukiran pada dinding. Masyarakat Sumatera Barat terkenal dengan pepatah Adat basandi syarak, syarak basandi Kitabullah, yang artinya adat bersendikan kepada agama, dan agama bersendikan kitabullah (Al-Quran). Hal itulah yang tercermin  dalam Masjid Raya Sumatera Barat. <a href="https://travel.detik.com/domestic-destination/d-4799337/pesona-masjid-raya-sumatera-barat-yang-jadi-ikon-kota-padang"> Baca Selengkapnya </a></p>';
+
+         L.marker([-0.924381,100.3623671]).bindPopup("Masjid Raya Sumatra Barat").bindPopup(info_masjid_raya).addTo(myMap);
 </script>
 </html>

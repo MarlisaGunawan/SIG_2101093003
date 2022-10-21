@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Peta Rumah Sakit diPadang</title>
+    <link rel="stylesheet" type="text/css" href="leaflet.css"/>
+    <script type="text/javascript" src="leaflet.js"></script>
+</head>
+<body>
+    <div id="map_pertama" style="width: 100%; height: 600px;"></div>
+</body>
+<script type="text/javascript">
+    var myMap = L.map('map_pertama').setView([-0.9285558,100.3629103],15);
+
+    var title = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom:19,
+		id:'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1
+	}).addTo(myMap);
+
+    var popup = L.popup()
+        .setLatLng([-0.923241, 100.375737])
+        .setContent('!I am a stand alone popup.')
+        .openOn(myMap);
+
+    function onMapClick(e) {
+        popup 
+            .setLatLng(e.latlng)
+            .setContent('!You Clicked the map at' + e.latlng.toString())
+            .openOn(myMap);
+    }
+
+    myMap.on('click', onMapClick);
+
+    var circle = L.circle([-0.9456761634337371, 100.37759098751464],{
+        color: 'red',
+        fillColor: 'red',
+        fillOpacity: 0.5,
+        radius: 200
+    }).addTo(myMap).bindPopup('I am a circle');
+
+   //L.marker([-0.943319, 100.36709]).bindPopup("Rumah Sakit Umum Pusat Dr. M. Djamil Padang").addTo(myMap);
+   //L.marker([-0.936177, 100.36266]).bindPopup("Rumah Sakit Yos Sudarso").addTo(myMap);
+   //L.marker([-0.947457, 100.36358]).bindPopup("Rumah Sakit Umum Aisyiyah").addTo(myMap);
+   //L.marker([-0.920513, 100.36751]).bindPopup("Rumah Sakit Islam Ibnu Sina Padang").addTo(myMap);
+   //L.marker([-0.919119, 100.36531]).bindPopup("RSB Bunda").addTo(myMap);
+   //L.marker([-0.917604, 100.36048]).bindPopup("Rumah Sakit Hermina Padang").addTo(myMap);
+   //L.marker([-0.932644, 100.36594]).bindPopup("Rumah Sakit Polda Sumatera Barat").addTo(myMap);
+   //L.marker([-0.935004, 100.35935]).bindPopup("Rumah Sakit Khusus Bedah Ropanasuri Padang").addTo(myMap);
+   //L.marker([-0.949655, 100.37181]).bindPopup("Rumah Sakit Tentara Dr. Reksodiwiryo").addTo(myMap);
+   //L.marker([-0.944248, 100.35920]).bindPopup("RS NAILI DBS").addTo(myMap);
+
+   var LeafIcon = L.Icon.extend({
+        options: {
+            iconSize: [36,36]
+        }
+    });
+
+   var rsicon = new LeafIcon({iconUrl: 'images/rs.png'});
+
+   L.marker([-0.943319, 100.36709],{icon: rsicon}).addTo(myMap);
+   L.marker([-0.936177, 100.36266],{icon: rsicon}).addTo(myMap);
+   L.marker([-0.947457, 100.36358],{icon: rsicon}).addTo(myMap);
+   L.marker([-0.920513, 100.36751],{icon: rsicon}).addTo(myMap);
+   L.marker([-0.919119, 100.36531],{icon: rsicon}).addTo(myMap);
+   L.marker([-0.917604, 100.36048],{icon: rsicon}).addTo(myMap);
+   L.marker([-0.932644, 100.36594],{icon: rsicon}).addTo(myMap);
+   L.marker([-0.935004, 100.35935],{icon: rsicon}).addTo(myMap);
+   L.marker([-0.949655, 100.37181],{icon: rsicon}).addTo(myMap);
+   L.marker([-0.944248, 100.35920],{icon: rsicon}).addTo(myMap);
+   
+   var DuaJalanKeMjamil = [
+    //array kordinate jalan pertama
+    [
+        [-0.921953, 100.367324],
+        [-0.920323, 100.363461],
+        [-0.920666, 100.361401],
+        [-0.92633, 100.361315],
+        [-0.933582, 100.361358],
+        [-0.939074, 100.361358],
+        [-0.944438, 100.362302],
+        [-0.944181, 100.366337],
+    ],
+
+    //array kordinate jalan kedua
+    [
+        [-0.922597, 100.368055],
+        [-0.923627, 100.367197],
+        [-0.9253, 100.367712],
+        [-0.929935, 100.366596],
+        [-0.935084, 100.366209],
+        [-0.94285, 100.366209],
+
+    ]
+];
+
+L.polyline(DuaJalanKeMjamil).addTo(myMap);
+
+var titikHermina =[
+    [-0.917169, 100.360195],
+    [-0.916997, 100.360797],
+    [-0.917963, 100.361376],
+    [-0.91807, 100.360711],
+];
+
+var areaHermina = L.polygon(titikHermina,{color: 'blue'}).addTo(myMap);
+
+var titikKedua =[
+    [-0.919336, 100.365479],
+    [-0.921009, 100.365908],
+    [-0.920194, 100.364706],
+    [-0.919164, 100.365006],
+];
+
+var areaKedua = L.polygon(titikKedua,{color: 'orange'}).addTo(myMap);
+
+var titikTiga =[
+    [-0.921267, 100.367753],
+    [-0.922983, 100.368311],
+    [-0.923241, 100.367238],
+    [-0.921782, 100.366807],
+    [-0.921267, 100.367753],
+];
+
+var areaKeTiga = L.polygon(titikTiga,{color: 'green'}).addTo(myMap);
+
+var titikEmpat =[
+    [-0.932638, 100.366164],
+    [-0.933968, 100.366121],
+    [-0.933839, 100.365005],
+    [-0.933968, 100.364576],
+    [-0.933153, 100.364746],
+    [-0.932638, 100.366164],
+];
+
+var areaKeEmpat = L.polygon(titikEmpat,{color: 'purple'}).addTo(myMap);
+
+var titikLima =[
+    [-0.936972, 100.362686],
+    [-0.936929, 100.364619],
+    [-0.937916, 100.364576],
+    [-0.938088, 100.363933],
+    [-0.939461, 100.363675],
+    [-0.939504, 100.361957],
+    [-0.938088, 100.361914],
+    [-0.937787, 100.362602],
+    [-0.936972, 100.362686],
+];
+
+var areaKeLima = L.polygon(titikLima,{color: 'brown'}).addTo(myMap);
+
+var titikEnam =[
+    [-0.935856, 100.359555],
+    [-0.935899, 100.360929],
+    [-0.936843, 100.361015],
+    [-0.936929, 100.359641],
+    [-0.935856, 100.359555],
+];
+
+var areaKeEnam = L.polygon(titikEnam,{color: 'black'}).addTo(myMap);
+
+var titikTujuh =[
+    [-0.944009, 100.36715],
+    [-0.944481, 100.366936],
+    [-0.944395, 100.367623],
+    [-0.945253, 100.36788],
+    [-0.945854, 100.368009],
+    [-0.944867, 100.370671],
+    [-0.943709, 100.370671],
+    [-0.942593, 100.370156],
+    [-0.943365, 100.368224],
+    [-0.944009, 100.36715],
+];
+
+var areaKeTujuh = L.polygon(titikTujuh,{color: 'navy'}).addTo(myMap);
+
+var titikDelapan =[
+    [-0.95036, 100.371917],
+    [-0.951904, 100.371832],
+    [-0.951432, 100.372948],
+    [-0.951604, 100.374877],
+    [-0.950102, 100.374662],
+    [-0.95036, 100.371917],
+];
+
+var areaKeDelapan = L.polygon(titikDelapan,{color: 'gray'}).addTo(myMap);
+
+var titikSembilan =[
+    [-0.95036, 100.371877],
+    [-0.951947, 100.371788],
+    [-0.951175, 100.373118],
+    [-0.951475, 100.374704],
+    [-0.949973, 100.374661],
+    [-0.95036, 100.371877],
+];
+
+var areaKeDelapan = L.polygon(titikSembilan,{color: 'blue'}).addTo(myMap);
+</script>
+</html>

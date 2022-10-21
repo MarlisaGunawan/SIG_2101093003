@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Latihan menampilkan Tooltip dan Poopuop</title>
+    <link rel="stylesheet" type="text/css" href="leaflet.css"/>
+    <script type="text/javascript" src="leaflet.js"></script>
+</head>
+<body>
+    <div id="map_pertama" style="width: 100%; height: 600px;"></div>
+</body>
+<script type="text/javascript">
+    var myMap = L.map('map_pertama').setView([-0.9285558,100.3629103],15);
+
+    var title = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom:19,
+		id:'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1
+	}).addTo(myMap);
+
+    L.marker([-0.924381,100.3623671]).bindPopup("Masjid Raya Sumatra Barat").addTo(myMap);
+    L.marker([-0.9356182,100.3558622]).bindTooltip("Kantor Gubernur Sumatra Barat").addTo(myMap);
+
+    var circle = L.circle([-0.9146584576741883, 100.3584852539694],{
+        color: 'red',
+        fillColor: 'f03',
+        fillOpacity: 0.5,
+        radius: 300
+    }).addTo(myMap).bindPopup('I am a circle');
+
+    var polygon = L.polygon([
+        [-0.9261794103684203, 100.36245200661126],
+        [-0.9358331074664177, 100.36076954708027],
+        [-0.9348531987334828, 100.36530017929678]
+    ]).addTo (myMap).bindPopup('I am a polygon');
+
+    var popup = L.popup()
+        .setLatLng([-0.9348531987334828, 100.36530017929678])
+        .setContent('!I am a stand alone popup.')
+        .openOn(myMap);
+
+    function onMapClick(e) {
+        popup 
+            .setLatLng(e.latlng)
+            .setContent('!You Clicked the map at' + e.latlng.toString())
+            .openOn(myMap);
+    }
+
+    myMap.on('click', onMapClick);
+
+    for (var i = 0; i<myLocation.length; i++){
+        markerMaps = new L.marker([myLocation[i][0], myLocation[i][1]]).addTo(myMap).bindTooltip(myLocation[i][2]).bindPopup(myLocation[i][3]);
+        }
+    
+        var info_masjid_raya = '<p style="text-align: center;"><iframe width="100%" height="200px"src="https://www.youtube.com/embed/aqW5KASLztQ" frameborder="0"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;picture-in-picture" allowfullscreen></iframe> </p> <p>Masjid Raya Sumatera Barat adalah masjid tanpa kubah. Atap masjid berupa khas rumah adat Minang serta terdapat ukiran-ukiran pada dinding. Masyarakat Sumatera Barat terkenal dengan pepatah Adat basandi syarak, syarak basandi Kitabullah, yang artinya adat bersendikan kepada agama, dan agama bersendikan kitabullah (Al-Quran). Hal itulah yang tercermin  dalam Masjid Raya Sumatera Barat. <a href="https://travel.detik.com/domestic-destination/d-4799337/pesona-masjid-raya-sumatera-barat-yang-jadi-ikon-kota-padang"> Baca Selengkapnya </a></p>';
+
+         L.marker([-0.924381,100.3623671]).bindPopup("Masjid Raya Sumatra Barat").bindPopup(info_masjid_raya).addTo(myMap);
+</script>
+</html>

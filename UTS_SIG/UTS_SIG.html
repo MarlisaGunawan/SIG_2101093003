@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base target="_top">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>GeoJSON - UTS</title>
+	
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		.leaflet-container {
+			height: 400px;
+			width: 600px;
+			max-width: 100%;
+			max-height: 100%;
+		}
+	</style>
+
+	
+</head>
+<body>
+
+<div id='map'></div>
+
+<script src="indonesia.geojson" type="text/javascript"></script>
+<script src="lubukbasung.js" type="text/javascript"></script>
+
+<script>
+	const map = L.map('map').setView([-0.3311077034884992, 100.06050457478823], 13);
+
+	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+
+	const baseballIcon = L.icon({
+		iconUrl: 'baseball-marker.png',
+		iconSize: [32, 37],
+		iconAnchor: [16, 37],
+		popupAnchor: [0, -28]
+	});
+
+	function onEachFeature(feature, layer) {
+		let popupContent = `<p>Kantor di, Lubuk Basung</p>`;
+
+		if (feature.properties && feature.properties.popupContent) {
+			popupContent += feature.properties.popupContent;
+		}
+
+		layer.bindPopup(popupContent);
+	}
+	const bicycleRentalLayer = L.geoJSON([lubukbasung], 
+    {
+		style(feature) {
+			return feature.properties && feature.properties.style;
+		},
+
+		onEachFeature,
+
+		pointToLayer(feature, latlng) {
+			return L.circleMarker(latlng, {
+				radius: 8,
+				fillColor: 'red',
+				color: 'red',
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.8
+			});
+		}
+	}).addTo(map);
+
+	const freeBusLayer = L.geoJSON(lubukbasung, {
+
+		filter(feature, layer) {
+			if (feature.properties) {
+				return feature.properties.underConstruction !== undefined ? !feature.properties.underConstruction : true;
+			}
+			return false;
+		},
+
+		onEachFeature
+	}).addTo(map);
+
+	const coorsLayer = L.geoJSON(coorsField, {
+
+		pointToLayer(feature, latlng) {
+			return L.marker(latlng, {icon: baseballIcon});
+		},
+
+		onEachFeature
+	}).addTo(map);
+
+    //var polygon = L.polygon([
+       //[100.03209473790008,-0.3126011238126492],
+       //[100.03206554240714,-0.31260255807385745],
+        //[100.03203662808271,-0.312606847044763],
+        //[100.03200827338755,-0.31261394942023735],
+       // [100.03198075139287,-0.3126237968005253],
+       // [100.03195432715044,-0.31263629434997997],
+       // [100.0319292551402,-0.31265132171037746],
+       // [100.0319057768193,-0.3126687341600329],
+        //[100.03188411829677,-0.3126883640075488],
+        //[100.03186448815605,-0.3127100222067748],
+    //]).addTo (map).bindPopup('I am a polygon');
+    
+</script>
+
+
+
+</body>
+</html>
